@@ -38,6 +38,13 @@ public class Main {
                         StudyGroup group = Collection.addElement();
                         messages.strings.add(group);
                     }
+                    if (enter == Enter.EXIT){
+                        out.close();
+                        in.close();
+                        client.close();
+                        System.out.println("Exiting...");
+                        break;
+                    }
 
                     out.writeObject(messages);
                     out.flush();
@@ -48,11 +55,14 @@ public class Main {
                     messages.strings.clear();
                     out.reset();
                 }
+
+                System.out.println("Goodbye");
+                System.exit(1);
             } catch (UnknownHostException e) {
                 e.printStackTrace();
             } catch (IOException e) {
-                System.out.println("Io exception");
-                Thread.sleep(5000);
+                System.out.println("Reconnecting...");
+                Thread.sleep(10000);
             } catch (ClassNotFoundException e) {
                 e.printStackTrace();
             }
